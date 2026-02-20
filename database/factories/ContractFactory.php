@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Client;
 use App\Models\Company;
-use App\Models\Node;
+use App\Models\ContractStatu;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,17 +22,14 @@ class ContractFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => $this->faker->ean13(),
-            'file_contract' => $this->faker->imageUrl(),
-            'client' => Client::factory()->create(),
-            'plan' => Plan::factory()->create(),
-            'node' => Node::factory()->create(),
-            'balance' => $this->faker->randomFloat(2, 0, 1000),
+            'n_contract' => $this->faker->ean13(),
             'address' => $this->faker->address(),
-            'status' => $this->faker->boolean(),
-            'user' => User::factory()->create(),
-            'company' => Company::factory()->create()
-
+            'balance' => $this->faker->randomFloat(),
+            'client_id' => Client::factory(),
+            'plan_id' => Plan::factory(),
+            'contract_statu_id' => ContractStatu::factory(),
+            'user_id' => User::factory(),
+            'company_id' => Company::factory(),
         ];
     }
 }

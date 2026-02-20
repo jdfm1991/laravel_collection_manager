@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,10 +17,7 @@ class NodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'status' => $this->faker->boolean(),
-            'user' => User::factory()->create(),
-            'company' => Company::factory()->create()
+            'name' => $this->faker->randomElement(['Node 1', 'Node 2', 'Node 3']),
         ];
     }
 }

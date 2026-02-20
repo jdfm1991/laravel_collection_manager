@@ -17,7 +17,7 @@ class ClientStatuFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->randomElement(['Activo', 'Inactivo', 'Cancelado', 'Pendiente', 'Suspendido', 'Bloqueado']),
+            'name' => $this->faker->randomElement(['Active', 'Inactive', 'Deleted']),
         ];
     }
 }

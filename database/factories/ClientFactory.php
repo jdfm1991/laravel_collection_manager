@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\ClientCategory;
+use App\Models\ClientStatu;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,14 +22,13 @@ class ClientFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'dni' => $this->faker->unique()->ean13(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->email(),
             'phone' => $this->faker->phoneNumber(),
-            'image' => $this->faker->imageUrl(),
-            'category' => ClientCategory::factory()->create(),
-            'user' => User::factory()->create(),
-            'company' => Company::factory()->create(),
-            'status' => $this->faker->boolean(),
+            'dni' => $this->faker->ean13(),
+            'client_category_id' => ClientCategory::factory(),
+            'client_statu_id' => ClientStatu::factory(),
+            'user_id' => User::factory(),
+            'company_id' => Company::factory(),
         ];
     }
 }

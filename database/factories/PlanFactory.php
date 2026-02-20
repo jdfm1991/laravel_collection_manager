@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +17,7 @@ class PlanFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'description' => $this->faker->sentence(),
-            'price' => $this->faker->randomFloat(2, 0, 100),
-            'status' => $this->faker->boolean(),
-            'user' => User::factory()->create(),
-            'company' => Company::factory()->create()
+            'name' => $this->faker->randomElement(['Plan 1', 'Plan 2', 'Plan 3']),
         ];
     }
 }

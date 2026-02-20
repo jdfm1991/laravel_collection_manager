@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +18,14 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => $this->faker->company(),
+            'description' => $this->faker->text(),
             'ruc' => $this->faker->ean13(),
-            'address' => $this->faker->address(),
-            'phone' => $this->faker->phoneNumber(),
+            'rif' => $this->faker->ean13(),
             'email' => $this->faker->email(),
-            'status' => $this->faker->boolean(),
-            'user' => User::factory()->create()
+            'logo' => $this->faker->imageUrl(),
+            'website' => $this->faker->url(),
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->address(),
         ];
     }
 }

@@ -17,7 +17,7 @@ class ClientCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->randomElement(['Empresa', 'Particular']),
+            'name' => $this->faker->randomElement(['Client Standard', 'Client VIP', 'Client Platinum']),
         ];
     }
 }

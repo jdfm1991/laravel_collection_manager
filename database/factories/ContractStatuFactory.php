@@ -17,7 +17,7 @@ class ContractStatuFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->sentence(),
+            'name' => $this->faker->randomElement(['New', 'Old', 'Cancel']),
         ];
     }
 }
