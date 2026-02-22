@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\ContractStatu;
+use App\Models\Node;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -27,6 +28,7 @@ class ContractFactory extends Factory
             'balance' => $this->faker->randomFloat(),
             'client_id' => Client::factory(),
             'plan_id' => Plan::factory(),
+            'node_id' => Node::factory(),
             'contract_statu_id' => ContractStatu::factory(),
             'user_id' => User::factory(),
             'company_id' => Company::factory(),

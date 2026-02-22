@@ -7,9 +7,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Node>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ExchangeRate>
  */
-class NodeFactory extends Factory
+class ExchangeRateFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,9 @@ class NodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(['Node 1', 'Node 2', 'Node 3']),
+            'currency' => $this->faker->randomElement(['USD', 'EUR', 'BSS', 'BRL']),
+            'rate' => $this->faker->randomFloat(),
+            'date' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'user_id' => User::factory(),
             'company_id' => Company::factory(),
         ];

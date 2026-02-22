@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ClientCategory extends Model
+class CollectionStatu extends Model
 {
-    /** @use HasFactory<\Database\Factories\ClientCategoryFactory> */
+    /** @use HasFactory<\Database\Factories\CollectionStatuFactory> */
     use HasFactory;
 
     protected $fillable = ['name'];
@@ -16,8 +16,8 @@ class ClientCategory extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function clients() : HasMany
+    public function collections(): HasMany
     {
-        return $this->hasMany(Client::class);
+        return $this->hasMany(Collection::class);
     }
 }
