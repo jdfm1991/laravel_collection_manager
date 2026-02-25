@@ -15,11 +15,19 @@ import {
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import { dashboard } from '@/routes';
+import company from '@/routes/company';
+
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
+        icon: LayoutGrid,
+    },
+
+    {
+        title: 'Company',
+        href: '/company',
         icon: LayoutGrid,
     },
 ];

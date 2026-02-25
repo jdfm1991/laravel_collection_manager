@@ -1,6 +1,9 @@
 <?php
 
-use App\Models\Payment;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContractController;
+use App\Models\Company;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -11,25 +14,20 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('collection', function () {
-    $collection1 = [1, 2, 3];
-    $collection2 = [4, 5, 6];
-    $payment1 = Payment::find(1);
-    $payment2 = Payment::find(5);
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 
-    $payment1->collections()->sync($collection1);
-    $payment2->collections()->sync($collection2);
+    
+    Route::resource('company', CompanyController::class);
+    Route::resource('client', ClientController::class);
+    Route::resource('contract', ContractController::class);
 
-    return response()->json([
-        'payment1' => $payment1,
-        'collection1' => $payment1->collections, 
-        'payment2' => $payment2,
-        'collection2' => $payment2->collections,]
-        );
 });
+
+
 
 require __DIR__ . '/settings.php';
