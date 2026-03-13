@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,6 +23,15 @@ class Company extends Model
         'phone',
         'address',
     ];
+
+    public function scopeSearch(Builder $query, $search): void
+    {
+        if ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', "%{$search}%")
+                ->orWhere('rif', 'LIKE', "%{$search}%");
+        }
+    }
 
     /**
      * Get all of the users for the Company

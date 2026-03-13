@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\ContractController;
 use App\Models\Company;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,8 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     
     Route::resource('company', CompanyController::class);
-    Route::resource('client', ClientController::class);
-    Route::resource('contract', ContractController::class);
+    //Route::resource('client', ClientController::class);
+    //Route::resource('contract', ContractController::class);
 
 });
 

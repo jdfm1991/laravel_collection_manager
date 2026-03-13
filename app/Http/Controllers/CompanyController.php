@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CompanyController extends Controller
@@ -12,10 +14,23 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('companies/index', [
-            
+            'companies' => Company::when($request->search, function (Builder $query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->search}%")
+                    ->orWhere('email', 'LIKE', "%{$request->search}%")
+                    ->orWhere('rif', 'LIKE', "%{$request->search}%");
+            })
+                ->latest()
+                ->paginate(10)
+                ->withQueryString(),
+            'filters' => [
+                'search' => $request->search,
+                /* 'perPage' => $perPage,
+                'sortBy' => $sortBy,
+                'sortDirection' => $sortDirection */
+            ]
         ]);
     }
 
