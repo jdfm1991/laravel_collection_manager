@@ -5,10 +5,10 @@ import SortLink from './sort-link';
 
 type CompanyListProps = {
   companies: Company[]
-  //filters: Filters
+  filters: Filters
 }
 
-export default function CompanyList({ companies }: CompanyListProps) {
+export default function CompanyList({ companies, filters }: CompanyListProps) {
   const formatDate = (date: string) => new Date(date).toLocaleDateString();
   return (
     <Table>
@@ -16,24 +16,41 @@ export default function CompanyList({ companies }: CompanyListProps) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">
-            ID
+            <SortLink filters={filters} field="id" label="ID" />
           </TableHead>
           <TableHead>
-            Name
+            <SortLink filters={filters} field="name" label="Name" />
           </TableHead>
           <TableHead>
-            Address
+            <SortLink filters={filters} field="email" label="Email" />
           </TableHead>
+          <TableHead>
+            <SortLink filters={filters} field="created_at" label="Created At" />
+          </TableHead>
+          <TableHead className="text-right">Accion</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {companies.map((company) => (
-          <TableRow key={company.id}>
-            <TableCell className="font-medium">{company.id}</TableCell>
-            <TableCell>{company.name}</TableCell>
-            <TableCell>{company.address}</TableCell>
-          </TableRow>
-        ))}
+        {companies.length > 0 ? (
+          <>
+            {companies.map((company) => (
+              <TableRow key={company.id}>
+                <TableCell className="font-medium">{company.id}</TableCell>
+                <TableCell>{company.name}</TableCell>
+                <TableCell>{company.address}</TableCell>
+                <TableCell>{formatDate(company.created_at)}</TableCell>
+
+              </TableRow>
+            ))}
+          </>
+        ) :
+          (
+            <TableRow>
+              <TableCell colSpan={5} className='text-red'>Data Not Found</TableCell>
+            </TableRow>
+          )
+        }
+
       </TableBody>
     </Table>
   )

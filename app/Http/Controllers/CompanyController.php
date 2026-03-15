@@ -17,16 +17,18 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->perPage ?? 10;
+        $sortBy = $request->sortBy ?? 'created_at';
+        $sortDirection = $request->sortDirection ?? 'asc';
         return Inertia::render('companies/index', [
             'companies' => Company::search($request->search)
-                ->latest()
+                ->orderBy($sortBy, $sortDirection)
                 ->paginate($perPage)
                 ->withQueryString(),
             'filters' => [
                 'search' => $request->search,
                 'perPage' => $perPage,
-                /*'sortBy' => $sortBy,
-                'sortDirection' => $sortDirection */
+                'sortBy' => $sortBy,
+                'sortDirection' => $sortDirection 
             ]
         ]);
     }
