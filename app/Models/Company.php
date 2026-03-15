@@ -28,7 +28,6 @@ class Company extends Model
     {
         if ($search) {
             $query->where('name', 'LIKE', "%{$search}%")
-                ->orWhere('email', 'LIKE', "%{$search}%")
                 ->orWhere('rif', 'LIKE', "%{$search}%");
         }
     }

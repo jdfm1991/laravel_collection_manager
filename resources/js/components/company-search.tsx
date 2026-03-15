@@ -1,4 +1,4 @@
-import { router, useForm } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ type companySearchProps = {
   filters: Filters
 };
 
-export default function CompanySearch({ search, setSeach }: companySearchProps ) {
+export default function CompanySearch({ search, setSeach, filters }: companySearchProps) {
 
   const [timerId, setTimerId] = React.useState<NodeJS.Timeout | null>(null);
 
@@ -28,30 +28,27 @@ export default function CompanySearch({ search, setSeach }: companySearchProps )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log(e.target.value);
-    const userInput = e.target.value;
-    setSeach(userInput);
-
+    const companyInput = e.target.value;
+    // clear the timeout if it exists
+    setSeach(companyInput);
     if (timerId) {
       clearTimeout(timerId);
     }
-
+    // set a new timeout
     const timeout = setTimeout(() => {
-      const queryString = userInput ? { search: userInput } : {};
-
+      const queryString = companyInput ? { ...filters, search: companyInput } : {};
+      // send the query string to the server
       router.get(index().url, queryString, {
         preserveState: true,
         preserveScroll: true
       });
-    }, 800);
+    }, 300);
     setTimerId(timeout);
   }
 
   const handleReset = () => {
     setSeach('');
-
-    const queryString = { search: '' };
-
+    const queryString = { ...filters, search: '' };
     router.get(index().url, queryString, {
       preserveState: true,
       preserveScroll: true
@@ -64,7 +61,7 @@ export default function CompanySearch({ search, setSeach }: companySearchProps )
         <Label className='p-2'>Search</Label>
         <Input
           type="text"
-          placeholder='Search Company By Name or Email...'
+          placeholder='Search Company By Name or Rif...'
           name='search'
           onChange={handleChange}
           value={search}

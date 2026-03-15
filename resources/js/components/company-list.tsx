@@ -5,10 +5,10 @@ import SortLink from './sort-link';
 
 type CompanyListProps = {
   companies: Company[]
-  filters: Filters
+  //filters: Filters
 }
 
-export default function CompanyList({ companies, filters }: CompanyListProps) {
+export default function CompanyList({ companies }: CompanyListProps) {
   const formatDate = (date: string) => new Date(date).toLocaleDateString();
   return (
     <Table>

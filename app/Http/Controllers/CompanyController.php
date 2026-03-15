@@ -16,19 +16,16 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
+        $perPage = $request->perPage ?? 10;
         return Inertia::render('companies/index', [
-            'companies' => Company::when($request->search, function (Builder $query) use ($request) {
-                $query->where('name', 'LIKE', "%{$request->search}%")
-                    ->orWhere('email', 'LIKE', "%{$request->search}%")
-                    ->orWhere('rif', 'LIKE', "%{$request->search}%");
-            })
+            'companies' => Company::search($request->search)
                 ->latest()
-                ->paginate(10)
+                ->paginate($perPage)
                 ->withQueryString(),
             'filters' => [
                 'search' => $request->search,
-                /* 'perPage' => $perPage,
-                'sortBy' => $sortBy,
+                'perPage' => $perPage,
+                /*'sortBy' => $sortBy,
                 'sortDirection' => $sortDirection */
             ]
         ]);

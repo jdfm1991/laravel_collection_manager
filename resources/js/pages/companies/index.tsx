@@ -6,8 +6,6 @@ import { index } from '@/routes/company';
 import CompanySearch from '@/components/company-search';
 import CompanyList from '@/components/company-list';
 import { Company } from '@/types/companies';
-import { Button } from '@/components/ui/button';
-import { CloudDownload } from 'lucide-react';
 import { TableCell, TableRow } from '@/components/ui/table';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -29,10 +27,10 @@ type IndexProps = {
 
 export default function Index({ companies, filters }: IndexProps) {
   const { data, setData } = useForm({
-    search: filters.search,
+    search: filters.search || '',
     perPage: filters.perPage,
-    sortBy: filters.sortBy,
-    sortDirection: filters.sortDirection
+    /*sortBy: filters.sortBy,
+    sortDirection: filters.sortDirection */
   });
 
   return (
@@ -44,14 +42,9 @@ export default function Index({ companies, filters }: IndexProps) {
           <div className='w-full max-w-7xl self-center space-y-2'>
             <CompanySearch
               filters={filters}
-              search={data.search}
-              setSeach={(value: string) => setData('search', value)} />
-            <Button asChild variant="outline">
-              <a>
-                Exportar
-                <CloudDownload className="w-4 h-4 ml-2" />
-              </a>
-            </Button>
+              search={data.search || ''}
+              setSeach={(value: string) => setData('search', value)}
+            />
             {companies.data.length > 0 ? (
               <>
                 <CompanyList companies={companies.data} />
@@ -59,7 +52,8 @@ export default function Index({ companies, filters }: IndexProps) {
                   links={companies.links}
                   filters={filters}
                   currentPage={data.perPage}
-                  setCurrentePage={(page: number) => setData('perPage', page)} />
+                  setCurrentePage={(page: number) => setData('perPage', page)}
+                />
               </>
             ) :
               (
